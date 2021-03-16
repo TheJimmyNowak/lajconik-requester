@@ -3,14 +3,15 @@ from functools import reduce
 import requests
 import string
 import random
+import csv
 
-response_times = []
+stats = []
 
 
 def get_request(requests_count: int, url: str) -> None:
     for i in range(requests_count):
         res = requests.get(url)
-        response_times.append(res.elapsed.total_seconds())
+        stats.append([res.elapsed.total_seconds()])
 
 
 def post_request(requests_count: int, url: str) -> None:
@@ -18,7 +19,7 @@ def post_request(requests_count: int, url: str) -> None:
 
     for i in range(requests_count):
         res = requests.post(url, data=data[i])
-        response_times.append(res.elapsed.total_seconds())
+        stats.append([res.elapsed.total_seconds()])
 
 
 def get_random_str(length: int):
@@ -46,7 +47,15 @@ def get_random_json():
         "publiclyAvailable": True
     }
 
-
+"""
 def show_stats() -> None:
-    average = reduce(lambda a, b: a + b, response_times) / len(response_times)
+    average = reduce(lambda a, b: a + b, stats) / len(stats)
     print("Average response time is: {}" .format(average))
+"""
+
+
+def save_stats() -> None:
+    print(stats)
+    with open('stats.csv', mode='w') as csv_file:
+        stats_writer = csv.writer(csv_file, delimiter=',')
+        stats_writer.writerows(stats)

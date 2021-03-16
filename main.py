@@ -16,5 +16,6 @@ elif method == "POST":
 
 stop_time = time.time() - start
 
-utils.show_stats()
+#utils.show_stats()
+utils.save_stats()
 print("Time elapsed: {} seconds".format(stop_time))
