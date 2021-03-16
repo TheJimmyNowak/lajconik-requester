@@ -37,21 +37,13 @@ def get_random_json():
         "minAge": "15",
         "minSkill": get_random_str(255),
         "availableTimeslots": [
-            {"id": 1},
-            {"id": 2},
-            {"id": 3}
+            [{"id": random.randint(1, 5)} for i in range(random.randint(1, 5))]
         ],
         "rpgSystem": get_random_str(255),
         "streamable": True,
         "sidenotes": get_random_str(255),
         "publiclyAvailable": True
     }
-
-"""
-def show_stats() -> None:
-    average = reduce(lambda a, b: a + b, stats) / len(stats)
-    print("Average response time is: {}" .format(average))
-"""
 
 
 def save_stats() -> None:
