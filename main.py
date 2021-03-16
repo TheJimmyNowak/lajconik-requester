@@ -9,7 +9,7 @@ method = sys.argv[3]
 start = time.time()
 
 if method == "GET":
-    utils.get_request(requests_count)
+    utils.get_request(requests_count, url)
 elif method == "POST":
     utils.post_request(requests_count, url)
 
