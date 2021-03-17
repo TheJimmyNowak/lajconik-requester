@@ -7,6 +7,7 @@ from template_request import TemplatePost
 requests_count = int(sys.argv[1])
 url = sys.argv[2]
 method = sys.argv[3]
+global runner
 
 start = time.time()
 
@@ -15,10 +16,10 @@ if method == "GET":
 elif method == "POST":
     utils.post_request(requests_count, url)
 elif method == "TEMPLATE-POST":
-    TemplatePost(requests_count, url).send_request()
+    runner = TemplatePost(requests_count, url)
+    runner.send_request()
 
 stop_time = time.time() - start
 
-#utils.show_stats()
-utils.save_stats()
+runner.save_stats()
 print("Time elapsed: {} seconds".format(stop_time))

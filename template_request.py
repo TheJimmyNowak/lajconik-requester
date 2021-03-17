@@ -3,6 +3,8 @@ import json
 import os
 import random
 
+import requests
+
 import utils
 
 
@@ -23,7 +25,7 @@ class _TemplateRequest:
             stats_writer.writerows(self._stats)
 
     def read_template(self) -> None:
-        data_path = os.path.join(self._template_dir, 'data')
+        data_path = os.path.join(self._template_dir, 'data.txt')
 
         with open(data_path, "r") as data_file:
             self._url = data_file.readline()
@@ -51,11 +53,21 @@ class _TemplateRequest:
             if type_to_gen == "str":
                 data[i] = utils.get_random_str(length)
 
-        print(type(data))
         return data
+
+    def save_stats(self) -> None:
+        with open('stats.csv', mode='w') as csv_file:
+            stats_writer = csv.writer(csv_file, delimiter=',')
+            stats_writer.writerows(self._stats)
 
 
 class TemplatePost(_TemplateRequest):
     def send_request(self):
         self.read_template()
-        self.make_random_data()
+        data = [self.make_random_data() for i in range(self._request_count)]
+
+        for i in range(self._request_count):
+            res = requests.post(self._url, data=data[i])
+            self._stats.append([res.elapsed.total_seconds()])
+
+
