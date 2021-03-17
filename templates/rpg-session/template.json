@@ -1,10 +1,10 @@
 {
   "title": "str 255",
-  "description": "str 255",
+  "description": "str 20 255",
   "gameMaster": {
     "id": 2
   },
-  "maxPlayerNumber": "int 8",
+  "maxPlayerNumber": "int 0 8",
   "minAge": "int 66",
   "minSkill": "int 255",
   "availableTimeslots": [
@@ -14,7 +14,7 @@
   ],
   "rpgSystem": "int 255",
   "streamable": true,
-  "sidenotes": "int 255",
+  "sidenotes": "int 20 255",
   "publiclyAvailable": true
 }
 

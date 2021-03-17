@@ -1,7 +1,8 @@
-import requests
-import string
-import random
 import csv
+import random
+import string
+
+import requests
 
 stats = []
 
@@ -20,8 +21,9 @@ def post_request(requests_count: int, url: str) -> None:
         stats.append([res.elapsed.total_seconds()])
 
 
-def get_random_str(length: int):
-    return ''.join(random.choice(string.ascii_letters + string.digits + string.whitespace) for _ in range(random.randint(0, length)))
+def get_random_str(min_length=0, max_length=255):
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in
+                   range(random.randint(min_length, max_length)))
 
 
 def get_random_json():

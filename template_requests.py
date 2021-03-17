@@ -38,27 +38,33 @@ class _TemplateRequest:
     # TODO: Dict handling
     def make_random_data(self) -> dict:
         data = self._template_data.copy()
+        type_to_gen = str()
+        min_length = 0
+        max_length = 255
 
         for i in data:
             try:
-                type_to_gen = str(data[i]).split()[0]
-                length = int(str(data[i]).split()[1])
+                if len(str(data[i]).split()) == 2:
+                    type_to_gen = str(data[i]).split()[0]
+                    max_length = int(str(data[i]).split()[1])
+                    min_length = 0
+                elif len(str(data[i]).split()) == 3:
+                    type_to_gen = str(data[i]).split()[0]
+                    min_length = int(str(data[i]).split()[2])
+                    max_length = int(str(data[i]).split()[2])
+
             except IndexError:
-                print("IndexError ")
+                print("IndexError")
             except ValueError:
-                print("ValueError ")
+                print("ValueError")
 
             if type_to_gen == "int":
-                data[i] = random.randint(0, length)
+                data[i] = random.randint(min_length, max_length)
             if type_to_gen == "str":
-                data[i] = utils.get_random_str(length)
+                data[i] = utils.get_random_str(max_length=max_length)
 
+        print(data)
         return data
-
-    def save_stats(self) -> None:
-        with open('stats.csv', mode='w') as csv_file:
-            stats_writer = csv.writer(csv_file, delimiter=',')
-            stats_writer.writerows(self._stats)
 
 
 class TemplatePost(_TemplateRequest):
@@ -69,5 +75,3 @@ class TemplatePost(_TemplateRequest):
         for i in range(self._request_count):
             res = requests.post(self._url, data=data[i])
             self._stats.append([res.elapsed.total_seconds()])
-
-

@@ -1,7 +1,7 @@
 import sys
 import time
 import utils
-from template_request import TemplatePost
+from template_requests import TemplatePost
 
 
 requests_count = int(sys.argv[1])
