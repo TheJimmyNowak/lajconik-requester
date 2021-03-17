@@ -50,7 +50,7 @@ class _TemplateRequest:
                     min_length = 0
                 elif len(str(data[i]).split()) == 3:
                     type_to_gen = str(data[i]).split()[0]
-                    min_length = int(str(data[i]).split()[2])
+                    min_length = int(str(data[i]).split()[1])
                     max_length = int(str(data[i]).split()[2])
 
             except IndexError:
