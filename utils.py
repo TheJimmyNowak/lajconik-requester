@@ -1,5 +1,3 @@
-from functools import reduce
-
 import requests
 import string
 import random
