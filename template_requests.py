@@ -17,7 +17,7 @@ class _TemplateRequest:
         self._template_data = []
 
     def send_request(self) -> None:
-        pass
+        print("[ERROR] send_request() wasn't implemented!")
 
     def save_stats(self) -> None:
         with open('stats.csv', mode='w') as csv_file:
@@ -32,8 +32,11 @@ class _TemplateRequest:
 
         json_path = os.path.join(self._template_dir, 'template.json')
 
-        with open(json_path, "r") as template_json:
-            self._template_data = json.load(template_json)
+        try:
+            with open(json_path, "r") as template_json:
+                self._template_data = json.load(template_json)
+        except:
+            print("[Error] template.json doesn't exist")
 
     # TODO: Dict handling
     def make_random_data(self) -> dict:
@@ -56,16 +59,15 @@ class _TemplateRequest:
                     type_to_gen = "NaN"
 
             except IndexError:
-                print("IndexError")
+                print(data[i])
             except ValueError:
-                print("ValueError")
+                print(data[i])
 
             if type_to_gen == "int":
                 data[i] = random.randint(min_length, max_length)
             if type_to_gen == "str":
                 data[i] = utils.get_random_str(max_length=max_length)
 
-        print(data)
         return data
 
 
@@ -77,3 +79,14 @@ class TemplatePost(_TemplateRequest):
         for i in range(self._request_count):
             res = requests.post(self._url, data=data[i])
             self._stats.append([res.elapsed.total_seconds()])
+            
+
+class TemplateGet(_TemplateRequest):
+    def send_request(self) -> None:
+        self.read_template()
+        for i in range(self._request_count):
+            res = requests.get(self._url)
+            self._stats.append([res.elapsed.total_seconds()])
+
+
+

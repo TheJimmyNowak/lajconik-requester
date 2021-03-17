@@ -1,7 +1,7 @@
 import sys
 import time
 import utils
-from template_requests import TemplatePost
+from template_requests import *
 
 
 requests_count = int(sys.argv[1])
@@ -17,6 +17,9 @@ elif method == "POST":
     utils.post_request(requests_count, url)
 elif method == "TEMPLATE-POST":
     runner = TemplatePost(requests_count, url)
+    runner.send_request()
+elif method == "TEMPLATE-GET":
+    runner = TemplateGet(requests_count, url)
     runner.send_request()
 
 stop_time = time.time() - start
