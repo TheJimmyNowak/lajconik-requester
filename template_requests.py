@@ -8,7 +8,7 @@ import requests
 import utils
 
 
-class _TemplateRequest:
+class _Request:
     def __init__(self, request_count: int, template_dir: str):
         self._template_dir = template_dir
         self._request_count = request_count
@@ -71,7 +71,7 @@ class _TemplateRequest:
         return data
 
 
-class TemplatePost(_TemplateRequest):
+class Post(_Request):
     def send_request(self):
         self.read_template()
         data = [self.make_random_data() for i in range(self._request_count)]
@@ -81,7 +81,7 @@ class TemplatePost(_TemplateRequest):
             self._stats.append([res.elapsed.total_seconds()])
 
 
-class TemplateGet(_TemplateRequest):
+class Get(_Request):
     def send_request(self) -> None:
         self.read_template()
         for i in range(self._request_count):
@@ -89,7 +89,7 @@ class TemplateGet(_TemplateRequest):
             self._stats.append([res.elapsed.total_seconds()])
 
 
-class TemplatePut(_TemplateRequest):
+class Put(_Request):
     def send_request(self):
         self.read_template()
         data = [self.make_random_data() for i in range(self._request_count)]
@@ -99,7 +99,7 @@ class TemplatePut(_TemplateRequest):
             self._stats.append([res.elapsed.total_seconds()])
 
 
-class TemplateDelete(_TemplateRequest):
+class Delete(_Request):
     def send_request(self):
         self.read_template()
 
@@ -108,7 +108,7 @@ class TemplateDelete(_TemplateRequest):
             self._stats.append([res.elapsed.total_seconds()])
 
 
-class TemplatePatch(_TemplateRequest):
+class Patch(_Request):
     def send_request(self):
         self.read_template()
         data = [self.make_random_data() for i in range(self._request_count)]

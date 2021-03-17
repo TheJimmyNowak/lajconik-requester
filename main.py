@@ -1,35 +1,30 @@
 import sys
 import time
 
-from template_requests import *
+import template_requests
 
 requests_count = int(sys.argv[1])
-url = sys.argv[2]
-method = sys.argv[3]
+template_dir = sys.argv[2]
+method = str(sys.argv[3]).upper()
 global runner
 
 start = time.time()
 
-if method == "GET":
-    utils.get_request(requests_count, url)
-elif method == "POST":
-    utils.post_request(requests_count, url)
-elif method == "TEMPLATE-POST":
-    runner = TemplatePost(requests_count, url)
+if method == "POST":
+    runner = template_requests.Post(requests_count, template_dir)
     runner.send_request()
-elif method == "TEMPLATE-GET":
-    runner = TemplateGet(requests_count, url)
+elif method == "GET":
+    runner = template_requests.Get(requests_count, template_dir)
     runner.send_request()
-elif method == "TEMPLATE-PUT":
-    runner = TemplatePut(requests_count, url)
+elif method == "PUT":
+    runner = template_requests.Put(requests_count, template_dir)
     runner.send_request()
-elif method == "TEMPLATE-DELETE":
-    runner = TemplateDelete(requests_count, url)
+elif method == "DELETE":
+    runner = template_requests.Delete(requests_count, template_dir)
     runner.send_request()
-elif method == "TEMPLATE-PATCH":
-    runner = TemplatePatch(requests_count, url)
+elif method == "PATCH":
+    runner = template_requests.Patch(requests_count, template_dir)
     runner.send_request()
-
 
 stop_time = time.time() - start
 
