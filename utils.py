@@ -45,7 +45,6 @@ def get_random_json():
 
 
 def save_stats() -> None:
-    print(stats)
     with open('stats.csv', mode='w') as csv_file:
         stats_writer = csv.writer(csv_file, delimiter=',')
         stats_writer.writerows(stats)
