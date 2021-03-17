@@ -52,6 +52,8 @@ class _TemplateRequest:
                     type_to_gen = str(data[i]).split()[0]
                     min_length = int(str(data[i]).split()[1])
                     max_length = int(str(data[i]).split()[2])
+                else:
+                    type_to_gen = "NaN"
 
             except IndexError:
                 print("IndexError")

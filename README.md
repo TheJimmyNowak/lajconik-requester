@@ -23,14 +23,14 @@ touch /templates/example-template/template.json
 Open that file with your favourite text editor ;) and insert your template.
 ```json
 {
-  "title": "str 255",
+  "title": "str 20 255",
   "description": "str 255",
   "gameMaster": {
     "id": 2
   },
   "maxPlayerNumber": "int 8",
   "minAge": "int 66",
-  "minSkill": "int 255",
+  "minSkill": "int 5 255",
   "availableTimeslots": [
     {
       "id": 2
@@ -42,7 +42,8 @@ Open that file with your favourite text editor ;) and insert your template.
   "publiclyAvailable": true
 }
 ```
-Where there is "str 255", the application will insert a string from 0 to 255.
+Where there is "str 20 255", the application will insert a string from 20 to 255. If you don't want 
+to specify minimal length you can simply type "str 255" so string will be from 0 to 255.
 
 3. Make `data.txt`
 ```bash
