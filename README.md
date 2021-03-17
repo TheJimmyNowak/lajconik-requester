@@ -53,13 +53,15 @@ To that file simply insert URL that you want to test.
 ```
 http://localhost:8080/api/v1/rpg-sessions
 ```
-## TEMPLATE-POST
+## POST
 After you create your template you can run your first POST request! Simply type.
 ```bash
-python main.py number_of_requests path_to_template TEMPLATE-POST
+python main.py number_of_requests path_to_template POST
 ```
 
 For example:
 ```bash
-python main.py 2000 /templates/example-template/ TEMPLATE-POST
+python main.py 2000 /templates/example-template/ POST
 ```
+
+### Methods GET, DELETE, PUT, PATCH are also implemented! 
