@@ -42,7 +42,7 @@ Open that file with your favourite text editor ;) and insert your template.
   "publiclyAvailable": true
 }
 ```
-In places where is `str 255` app will insert string with 255 chars.
+Where there is "str 255", the application will insert a string from 0 to 255.
 
 3. Make `data.txt`
 ```bash
