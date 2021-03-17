@@ -1,8 +1,7 @@
 import sys
 import time
-import utils
-from template_requests import *
 
+from template_requests import *
 
 requests_count = int(sys.argv[1])
 url = sys.argv[2]
@@ -21,6 +20,16 @@ elif method == "TEMPLATE-POST":
 elif method == "TEMPLATE-GET":
     runner = TemplateGet(requests_count, url)
     runner.send_request()
+elif method == "TEMPLATE-PUT":
+    runner = TemplatePut(requests_count, url)
+    runner.send_request()
+elif method == "TEMPLATE-DELETE":
+    runner = TemplateDelete(requests_count, url)
+    runner.send_request()
+elif method == "TEMPLATE-PATCH":
+    runner = TemplatePatch(requests_count, url)
+    runner.send_request()
+
 
 stop_time = time.time() - start
 

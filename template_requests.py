@@ -79,7 +79,7 @@ class TemplatePost(_TemplateRequest):
         for i in range(self._request_count):
             res = requests.post(self._url, data=data[i])
             self._stats.append([res.elapsed.total_seconds()])
-            
+
 
 class TemplateGet(_TemplateRequest):
     def send_request(self) -> None:
@@ -89,4 +89,30 @@ class TemplateGet(_TemplateRequest):
             self._stats.append([res.elapsed.total_seconds()])
 
 
+class TemplatePut(_TemplateRequest):
+    def send_request(self):
+        self.read_template()
+        data = [self.make_random_data() for i in range(self._request_count)]
 
+        for i in range(self._request_count):
+            res = requests.put(self._url, data=data[i])
+            self._stats.append([res.elapsed.total_seconds()])
+
+
+class TemplateDelete(_TemplateRequest):
+    def send_request(self):
+        self.read_template()
+
+        for i in range(self._request_count):
+            res = requests.delete(self._url)
+            self._stats.append([res.elapsed.total_seconds()])
+
+
+class TemplatePatch(_TemplateRequest):
+    def send_request(self):
+        self.read_template()
+        data = [self.make_random_data() for i in range(self._request_count)]
+
+        for i in range(self._request_count):
+            res = requests.patch(self._url, data=data[i])
+            self._stats.append([res.elapsed.total_seconds()])
