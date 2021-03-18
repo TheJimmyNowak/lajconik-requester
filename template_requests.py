@@ -40,14 +40,15 @@ class _Request:
 
     def make_random_data(self) -> dict:
         data = self._template_data.copy()
-        type_to_gen = str()
-        min_length = 0
-        max_length = 255
-        quantity = 0
-        key = ""
-        value_type = ""
 
         for i in data:
+            type_to_gen = str()
+            min_length = 0
+            max_length = 255
+            quantity = 0
+            key = ""
+            value_type = ""
+
             try:
                 if len(str(data[i]).split()) == 2:
                     type_to_gen = str(data[i]).split()[0]
@@ -90,7 +91,6 @@ class _Request:
                 elif value_type == "int":
                     data[i] = [{key: random.randint(min_length, max_length)} for i in range(quantity)]
 
-        print(data)
         return data
 
 
