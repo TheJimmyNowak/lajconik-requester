@@ -43,7 +43,7 @@ class _Request:
         try:
             with open(json_path, "r") as template_json:
                 self._template_data = json.load(template_json)
-        except:
+        except FileNotFoundError:
             print("[Error] template.json doesn't exist")
 
     def make_random_data(self) -> dict:
@@ -82,9 +82,9 @@ class _Request:
                     type_to_gen = "NaN"
 
             except IndexError:
-                print(data[i])
+                pass
             except ValueError:
-                print(data[i])
+                pass
 
             if type_to_gen == "int":
                 data[i] = random.randint(min_length, max_length)
