@@ -87,6 +87,8 @@ class _Request:
 
             if type_to_gen == "int":
                 data[i] = random.randint(min_length, max_length)
+            elif type_to_gen == "str" and min_length != 0:
+                data[i] = utils.get_random_str(min_length=min_length, max_length=max_length)
             elif type_to_gen == "str":
                 data[i] = utils.get_random_str(max_length=max_length)
             elif type_to_gen == "list":
