@@ -38,14 +38,17 @@ class _Request:
         except:
             print("[Error] template.json doesn't exist")
 
-    # TODO: Dict handling
     def make_random_data(self) -> dict:
         data = self._template_data.copy()
-        type_to_gen = str()
-        min_length = 0
-        max_length = 255
 
         for i in data:
+            type_to_gen = str()
+            min_length = 0
+            max_length = 255
+            quantity = 0
+            key = ""
+            value_type = ""
+
             try:
                 if len(str(data[i]).split()) == 2:
                     type_to_gen = str(data[i]).split()[0]
@@ -55,6 +58,18 @@ class _Request:
                     type_to_gen = str(data[i]).split()[0]
                     min_length = int(str(data[i]).split()[1])
                     max_length = int(str(data[i]).split()[2])
+                elif len(str(data[i]).split()) == 4:
+                    type_to_gen = str(data[i]).split()[0]
+                    quantity = int(str(data[i]).split()[1])
+                    min_length = int(str(data[i]).split()[2])
+                    max_length = int(str(data[i]).split()[3])
+                elif len(str(data[i]).split()) == 6:
+                    type_to_gen = str(data[i]).split()[0]
+                    key = str(data[i]).split()[1]
+                    quantity = int(str(data[i]).split()[2])
+                    value_type = str(data[i]).split()[3]
+                    min_length = int(str(data[i]).split()[4])
+                    max_length = int(str(data[i]).split()[5])
                 else:
                     type_to_gen = "NaN"
 
@@ -65,8 +80,16 @@ class _Request:
 
             if type_to_gen == "int":
                 data[i] = random.randint(min_length, max_length)
-            if type_to_gen == "str":
+            elif type_to_gen == "str":
                 data[i] = utils.get_random_str(max_length=max_length)
+            elif type_to_gen == "list":
+                data[i] = [utils.get_random_str(min_length=min_length, max_length=max_length) for i in range(quantity)]
+            elif type_to_gen == "dictlist":
+                if value_type == "str":
+                    data[i] = [{key: utils.get_random_str(min_length=min_length, max_length=max_length)} for i in
+                               range(quantity)]
+                elif value_type == "int":
+                    data[i] = [{key: random.randint(min_length, max_length)} for i in range(quantity)]
 
         return data
 

@@ -7,11 +7,7 @@
   "maxPlayerNumber": "int 0 8",
   "minAge": "int 66",
   "minSkill": "int 255",
-  "availableTimeslots": [
-    {
-      "id": 2
-    }
-  ],
+  "availableTimeslots": "dictlist id 5 int 0 5",
   "rpgSystem": "int 255",
   "streamable": true,
   "sidenotes": "int 20 255",
