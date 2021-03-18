@@ -16,7 +16,8 @@ class _Request:
         self._url = str()
         self._template_data = []
 
-    def _get_stats(self, res: requests.Response) -> list:
+    @staticmethod
+    def _get_stats(res: requests.Response) -> list:
         res_time = res.elapsed.total_seconds()
         res_code = res.status_code
 
@@ -25,8 +26,8 @@ class _Request:
     def send_request(self) -> None:
         print("[ERROR] send_request() wasn't implemented!")
 
-    def save_stats(self) -> None:
-        with open('stats.csv', mode='w') as csv_file:
+    def save_stats(self, path='stats.csv') -> None:
+        with open(path, mode='w') as csv_file:
             stats_writer = csv.writer(csv_file, delimiter=',')
             stats_writer.writerow(["response_time", "code"])
             stats_writer.writerows(self._stats)
