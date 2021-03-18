@@ -6,7 +6,7 @@ from template_requests import _Request
 class TestRequest(TestCase):
     def __init__(self, *args, **kwargs):
         super(TestRequest, self).__init__(*args, **kwargs)
-        self.obj = _Request(2, "./templates/test-template")
+        self.obj = _Request(2, "templates/test-template")
 
     def test_make_random_data(self):
         self.obj.read_template()
