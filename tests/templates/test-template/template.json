@@ -1,0 +1,9 @@
+{
+  "testint": "int 10 200",
+  "testint2": "int 220",
+  "teststr": "str 123 200",
+  "teststr2": "str 12",
+  "testlist": "list 2 20 23",
+  "testdictlist": "dictlist name 10 int 3 20"
+}
+
