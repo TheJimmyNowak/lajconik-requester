@@ -16,12 +16,19 @@ class _Request:
         self._url = str()
         self._template_data = []
 
+    def _get_stats(self, res: requests.Response) -> list:
+        res_time = res.elapsed.total_seconds()
+        res_code = res.status_code
+
+        return [res_time, res_code]
+
     def send_request(self) -> None:
         print("[ERROR] send_request() wasn't implemented!")
 
     def save_stats(self) -> None:
         with open('stats.csv', mode='w') as csv_file:
             stats_writer = csv.writer(csv_file, delimiter=',')
+            stats_writer.writerow(["response_time", "code"])
             stats_writer.writerows(self._stats)
 
     def read_template(self) -> None:
@@ -101,7 +108,7 @@ class Post(_Request):
 
         for i in range(self._request_count):
             res = requests.post(self._url, data=data[i])
-            self._stats.append([res.elapsed.total_seconds()])
+            self._stats.append(self._get_stats(res))
 
 
 class Get(_Request):
@@ -109,7 +116,7 @@ class Get(_Request):
         self.read_template()
         for i in range(self._request_count):
             res = requests.get(self._url)
-            self._stats.append([res.elapsed.total_seconds()])
+            self._stats.append(self._get_stats(res))
 
 
 class Put(_Request):
@@ -119,7 +126,7 @@ class Put(_Request):
 
         for i in range(self._request_count):
             res = requests.put(self._url, data=data[i])
-            self._stats.append([res.elapsed.total_seconds()])
+            self._stats.append(self._get_stats(res))
 
 
 class Delete(_Request):
@@ -128,7 +135,7 @@ class Delete(_Request):
 
         for i in range(self._request_count):
             res = requests.delete(self._url)
-            self._stats.append([res.elapsed.total_seconds()])
+            self._stats.append(self._get_stats(res))
 
 
 class Patch(_Request):
@@ -138,4 +145,4 @@ class Patch(_Request):
 
         for i in range(self._request_count):
             res = requests.patch(self._url, data=data[i])
-            self._stats.append([res.elapsed.total_seconds()])
+            self._stats.append(self._get_stats(res))
