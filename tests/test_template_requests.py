@@ -1,9 +1,7 @@
-import csv
-import os
 from unittest import TestCase
 
-import utils
-from template_requests import _Request, Post
+from template_requests import *
+from template_requests import _Request
 
 
 class TestRequest(TestCase):
@@ -44,6 +42,94 @@ class TestPost(TestCase):
     def __init__(self, *args, **kwargs):
         super(TestPost, self).__init__(*args, **kwargs)
         self.obj = Post(1, 'tests/templates/test-template')
+
+    def test_send_request(self):
+        stats_path = utils.get_random_str(0, 20) + ".csv"
+
+        self.obj.send_request()
+        self.obj.save_stats(stats_path)
+
+        with open(stats_path, 'r') as stats:
+            reader = csv.reader(stats, delimiter=",")
+            next(reader)
+            res_time, status_code = next(reader)
+
+            self.assertTrue(type(res_time) is not None)
+            self.assertEqual(int(status_code), 404)
+
+        os.remove(stats_path)
+
+
+class TestGet(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestGet, self).__init__(*args, **kwargs)
+        self.obj = Get(1, 'tests/templates/test-template')
+
+    def test_send_request(self):
+        stats_path = utils.get_random_str(0, 20) + ".csv"
+
+        self.obj.send_request()
+        self.obj.save_stats(stats_path)
+
+        with open(stats_path, 'r') as stats:
+            reader = csv.reader(stats, delimiter=",")
+            next(reader)
+            res_time, status_code = next(reader)
+
+            self.assertTrue(type(res_time) is not None)
+            self.assertEqual(int(status_code), 404)
+
+        os.remove(stats_path)
+
+
+class TestPut(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestPut, self).__init__(*args, **kwargs)
+        self.obj = Put(1, 'tests/templates/test-template')
+
+    def test_send_request(self):
+        stats_path = utils.get_random_str(0, 20) + ".csv"
+
+        self.obj.send_request()
+        self.obj.save_stats(stats_path)
+
+        with open(stats_path, 'r') as stats:
+            reader = csv.reader(stats, delimiter=",")
+            next(reader)
+            res_time, status_code = next(reader)
+
+            self.assertTrue(type(res_time) is not None)
+            self.assertEqual(int(status_code), 404)
+
+        os.remove(stats_path)
+
+
+class TestDelete(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestDelete, self).__init__(*args, **kwargs)
+        self.obj = Delete(1, 'tests/templates/test-template')
+
+    def test_send_request(self):
+        stats_path = utils.get_random_str(0, 20) + ".csv"
+
+        self.obj.send_request()
+        self.obj.save_stats(stats_path)
+
+        with open(stats_path, 'r') as stats:
+            reader = csv.reader(stats, delimiter=",")
+            next(reader)
+            res_time, status_code = next(reader)
+
+            self.assertTrue(type(res_time) is not None)
+            self.assertEqual(int(status_code), 404)
+
+        os.remove(stats_path)
+
+
+class TestPatch(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestPatch, self).__init__(*args, **kwargs)
+        self.obj = Patch(1, 'tests/templates/test-template')
 
     def test_send_request(self):
         stats_path = utils.get_random_str(0, 20) + ".csv"
