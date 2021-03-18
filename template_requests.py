@@ -44,6 +44,7 @@ class _Request:
         type_to_gen = str()
         min_length = 0
         max_length = 255
+        quantity = 0
 
         for i in data:
             try:
@@ -55,6 +56,11 @@ class _Request:
                     type_to_gen = str(data[i]).split()[0]
                     min_length = int(str(data[i]).split()[1])
                     max_length = int(str(data[i]).split()[2])
+                elif len(str(data[i]).split()) == 4:
+                    type_to_gen = str(data[i]).split()[0]
+                    quantity = int(str(data[i]).split()[1])
+                    min_length = int(str(data[i]).split()[2])
+                    max_length = int(str(data[i]).split()[3])
                 else:
                     type_to_gen = "NaN"
 
@@ -65,9 +71,12 @@ class _Request:
 
             if type_to_gen == "int":
                 data[i] = random.randint(min_length, max_length)
-            if type_to_gen == "str":
+            elif type_to_gen == "str":
                 data[i] = utils.get_random_str(max_length=max_length)
+            elif type_to_gen == "list":
+                data[i] = [utils.get_random_str(min_length=min_length, max_length=max_length) for i in range(quantity)]
 
+        print(data)
         return data
 
 
